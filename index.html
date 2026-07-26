@@ -277,7 +277,7 @@
   var comb = document.getElementById('comb');
 
   var HW = 140, HH = Math.round(HW * 1.1547);
-  var COLS = 9, ROWS = 7;
+  var COLS = 8, ROWS = 8;
   var colSpacing = HW * 0.75;
   var rowSpacing = HH;
   comb.style.setProperty('--hw', HW + 'px');
@@ -335,7 +335,6 @@
   ];
 
   var tiles = [];
-  var order = 0;
   for (var c = 0; c < COLS; c++){
     for (var r = 0; r < ROWS; r++){
       var x = c * colSpacing;
@@ -345,8 +344,9 @@
       hex.className = 'hex';
       hex.style.left = x + 'px';
       hex.style.top = y + 'px';
-      hex.dataset.special = order % SPECIALS.length;
-      order++;
+      var axialR = r - Math.floor(c / 2);
+      var specialIdx = ((c - axialR) % SPECIALS.length + SPECIALS.length) % SPECIALS.length;
+      hex.dataset.special = specialIdx;
 
       var face = document.createElement('div');
       face.className = 'hex-face';
